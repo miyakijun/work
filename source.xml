@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<photolist>
+	<photo>
+        <adsrc>0</adsrc>
+        <adurl>0</adurl>
+		<sort>chole</sort>
+    </photo>
+	 <photo>
+        <adsrc>1</adsrc>
+        <adurl>1</adurl>
+		<sort>kobito</sort>
+    </photo>
+    <photo>
+        <adsrc>2</adsrc>
+        <adurl>2</adurl>
+		<sort>chole</sort>
+    </photo>
+	    <photo>
+        <adsrc>3</adsrc>
+        <adurl>3</adurl>
+		<sort>chole</sort>
+    </photo>
+	    <photo>
+        <adsrc>4</adsrc>
+        <adurl>4</adurl>
+		<sort>kobito</sort>
+    </photo>
+	    <photo>
+        <adsrc>5</adsrc>
+        <adurl>5</adurl>
+		<sort>kobito</sort>
+    </photo>
+</photolist>

@@ -1,0 +1,195 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>scrollTop</title>
+
+<link rel="stylesheet" href="css/reset.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+</head>
+
+<body>
+<style>
+#nav ul{
+	
+  float:right;
+
+  list-style:none;
+
+	}
+#nav ul li{
+	  float:left;
+
+  margin:0px 10px 0px 0px;
+}
+#content{
+	width:80%;
+
+	margin:0 auto;
+}
+.unit{
+	width:100%;
+	float:left;
+	height:300px;
+}
+#videoContent{
+	background:#FFE9CC;
+	position:relative;
+	height:480px;
+}
+video{
+	margin:0 auto;
+	width:100%;
+	}
+
+
+
+#slideShow{
+	background:#F5D7F7;
+	
+}
+#slideShow div img{
+	width:100px;
+	height:100px;
+}
+#filter li{
+	float:left;
+	
+	padding:20px;
+	clear:both;
+
+}
+#slideContent div{
+	
+	float:left;
+}
+
+#unit1{background:#F4C6C7;}
+#unit2{background:#C7DBF7;}
+#unit3{background:#E7F8DC;}
+
+
+</style>
+
+<div id="content">
+<div id="nav">
+<ul>
+	<li><a href="javascript:void(0)">videoContent</a></li>
+	<li><a href="javascript:void(0)">slideShow</a></li>
+	<li><a href="javascript:void(0)">unit1</a></li>
+	<li><a href="javascript:void(0)">unit2</a></li>
+	<li><a href="javascript:void(0)">unit3</a></li>
+</ul>
+</div>
+
+<div class="unit" id="videoContent">
+<video id="MovieShow" src="../../Movies/飛兒樂團 F.I.R. - I remember (華納official 高畫質HD官方完整版MV).mp4" controls='controls'>您的浏览器不支持 video 标签。</video>
+<input type="button" id="btn">
+</div>
+
+
+<div class="unit" id="slideShow">
+<div id="filter">
+<ul>
+	<li><a href="#">all</a></li>
+	<li><a href="#">chole</a></li>
+	<li><a href="#">kobito</a></li>
+	<li><a href="#">shima</a></li>
+</ul>
+</div>
+
+<div id="slideContent">
+
+</div>
+</div>
+
+
+<div class="unit" id="unit1"></div>
+<div class="unit" id="unit2"></div>
+<div class="unit" id="unit3"></div>
+
+</div>
+
+<script>
+
+$("#btn").click(function(e) {
+   $("video").get(0).pause();
+   var videoHeight=$('video').height();
+	$("#videoContent").css('height',videoHeight+'px');
+});
+
+
+$(document).ready(function(e) {
+	var sort=[];
+createSlide();
+	//$("#videoContent").css('height',500+'px');
+		sliderfliter();
+	var videoHeight=$('video').height();
+	$("#videoContent").css('height',videoHeight+'px');
+	
+	
+	
+	
+	
+    $("#nav li").click(function(e) {
+      var currentDiv=$(this).text();
+		if(currentDiv=="videoContent"){
+				var currentY=$("#videoContent").offset().top;
+			}else if(currentDiv=="slideShow"){
+					var currentY=$("#slideShow").offset().top;
+				}else if(currentDiv=="unit1"){
+						var currentY=$("#unit1").offset().top;
+					}else if(currentDiv=="unit2"){
+							var currentY=$("#unit2").offset().top;
+						}else if(currentDiv=="unit3"){
+								var currentY=$("#unit3").offset().top;
+							}
+					$('body').animate({scrollTop:currentY},600);
+    });//click end
+	
+	
+	function createSlide(){
+		for(var i=0;i<5;i++){	$("#slideContent").append('<div class="sort'+sort[i]+'"><img src="images/'+i+'.jpg" alt=""><a href="">"des'+i+'"</a></div>')}
+	}//end
+	
+	
+	function sliderfliter(){
+		$("#filter li").click(function(e) {
+		
+			var tt=$(this).text();
+			
+			
+			$("#slideContent li").each(function(index, element) {
+                if(!$(this).hasClass(tt)){
+				$(this).fadeOut(100);	   
+			   }
+            });
+           
+        });
+		
+	}//end
+	
+	
+	//讀xml
+	$.ajax({
+		type:'GET',
+		url:"source.xml",
+		dataType:"xml",
+		timeout: 1000,
+		success: function(xml){
+		$(xml).find("photo").each(function(index, element) {
+		var title=$(this).children("adsrc").text();;
+		sort.push($(this).children("sort").text())
+		//$('#inputxml ul').append('<li><a><img src=>'+title+'</a></li>');
+		console.log(title)
+		});
+		//var firstxml=$(xml).find("photo").eq(0).find("adsrc").text();
+		},
+		error:function(xml){
+		}
+	})//end
+});
+
+</script>
+</body>
+</html>
